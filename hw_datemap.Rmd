@@ -1,0 +1,24 @@
+---
+title: "HW_datemap"
+author: "Han Lin Yeh"
+date: "2025-02-21"
+output: html_document
+---
+
+```{r }
+library(lubridate)
+library(purrr)
+library(tibble)
+
+#Exercise1
+#Create a sequence 
+q1 <- seq(ymd("2015,1,1"), ymd("2025,12,31"), by = "2 months")
+
+#Extract components
+tibble(
+  date = q1,
+  year = year(q1),
+  quarter = quarter(q1),
+  iso_week = isoweek(q1))
+```
+
