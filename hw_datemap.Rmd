@@ -43,5 +43,24 @@ tibble(
   mean = map_dbl(num_lists, mean),
   median = map_dbl(num_lists, median),
   sd = map_dbl(num_lists, sd))
+
+#Exercise4
+# List of date strings with an invalid entry
+date_strings <- list("2023-06-10", "2022/12/25", "15-Aug-2021", "InvalidDate")
+
+# Define a safe date conversion function
+safe_parse_date <- possibly(function(x) {
+  parsed_date <- parse_date_time(x, orders = c("Y-m-d", "Y/m/d", "d-b-Y"))
+  print(paste("Parsing:", x, "->", parsed_date)) # Debugging print statement
+  return(parsed_date)
+}, otherwise = NA)
+
+# Apply function to list
+converted_dates <- map(date_strings, safe_parse_date)
+
+# Convert to character explicitly for map_chr()
+month_names <- map_chr(converted_dates, ~ ifelse(is.na(.x), "Invalid", as.character(month(.x, label = TRUE, locale = "en"))))
+
+print(month_names)
 ```
 
